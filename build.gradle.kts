@@ -6,6 +6,9 @@ plugins {
     kotlin("jvm") version "1.3.71"
     kotlin("plugin.spring") version "1.3.71"
     kotlin("plugin.jpa") version "1.3.71"
+    id("com.palantir.docker-run") version "0.25.0"
+    id("org.jlleitschuh.gradle.ktlint") version "9.1.1"
+    id("org.jlleitschuh.gradle.ktlint-idea") version "9.1.1"
 }
 
 group = "org.josh"
@@ -45,4 +48,29 @@ tasks.withType<KotlinCompile> {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
     }
+}
+
+tasks {
+    build {
+        dependsOn(addKtlintFormatGitPreCommitHook)
+    }
+
+    compileKotlin {
+        dependsOn(ktlintFormat)
+    }
+}
+
+dockerRun {
+    name = "postgres"
+    image = "postgres:10"
+    ports("5432:5432")
+    daemonize = false
+    clean
+    env(
+        mapOf(
+            "POSTGRES_DB" to "spring_boot_board_example",
+            "POSTGRES_USER" to "root",
+            "POSTGRES_PASSWORD" to "password"
+        )
+    )
 }
