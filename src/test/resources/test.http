@@ -1,0 +1,50 @@
+POST http://localhost:8080/v1/users
+Content-Type: application/json
+
+{
+  "displayName": "2hyjun",
+  "fullName": "HyuckJun Lee",
+  "email": "biper94@gmail.com"
+}
+
+### GET USER
+GET http://localhost:8080/v1/users/1
+
+
+### GET BOARDS
+GET http://localhost:8080/v1/board
+
+### GET BOARD
+GET http://localhost:8080/v1/board/1
+
+### POST Board
+POST http://localhost:8080/v1/board
+Content-Type: application/json
+
+{
+  "title": "My First Board",
+  "content": "I AM LUCIFER MORNING STAR",
+  "userId": 1
+}
+
+### POST Comment
+POST http://localhost:8080/v1/board/1/comment
+Content-Type: application/json
+
+{
+  "content": "I AM THE DEVIL",
+  "userId": 1
+}
+
+
+### POST BoardReaction
+POST http://localhost:8080/v1/board/1/like
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "reactionType": "like"
+}
+
+###
+
